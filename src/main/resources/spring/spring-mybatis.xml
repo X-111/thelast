@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    
+    
+    <!--配置数据源-->
+    <!--1. 先加载数据库的配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--2.配置DataSource,采用c3p0的-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="url" value="${jdbc.jdbcUrl}"/>
+        <property name="driverClassName" value="${jdbc.driverClasss}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <!--配置Spring事务用于管理Mybatis的DataSource-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--配置MyBatis-->
+    <!--1. 自动扫描mapper.xml文件和会话工厂,配置mapper是操作那个数据源-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="typeAliasesPackage" value="com.htt.pojo" />
+        <property name="dataSource" ref="dataSource"/>
+        <!--注意:这里是Mapperlocations,不是configLocation-->
+        <property name="mapperLocations" value="classpath:com/htt/mapper1/*.xml"/>
+    </bean>
+    <!--2.自动扫描Mapper层的接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.htt.mapper1"/>
+
+    </bean>
+</beans>

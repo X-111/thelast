@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        form{text-align:center;}
+        div{background:#33ff99;width:400px;height:200px;margin:0 auto;}
+    </style>
+</head>
+<body>
+<script>
+    function mover() {
+        document.getElementsByTagName("div").style.background="#99cc66";
+    }
+    function mout() {
+        document.getElementsByTagName("div").style.background="#ff33ff";
+    }
+    function mmove() {
+        document.getElementsByTagName("div").style.background="#0033ff";
+    }
+    function mdown() {
+        alert("按下鼠标");
+    }
+    function mclick() {
+        alert("单击鼠标");
+    }
+    function mdclick() {
+        alert("双击鼠标");
+    }
+</script>
+<h2>鼠标处理事件</h2>
+<hr color="red">
+<form>
+    <input type="text"id="text1"onmouseover="mover()"onmousemove="mmove()"onmouseout="mout()"onclick="mclick()"ondblclick="mdclick()"onmousedown="mdown()">
+</form>
+</body>
+</html>

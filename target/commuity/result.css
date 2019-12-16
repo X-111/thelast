@@ -1,0 +1,108 @@
+body
+{
+    font-size: 12px;
+}
+.wc{
+    height:650px;
+}
+#resultPanel
+{
+    position: absolute;
+    top:1px;
+}
+#ResultBody{
+    height: 96%;
+}
+/*表头的样式*/
+#ResultTitle
+{
+    display: block;
+    background-color: #1ee4ff;
+    line-height: 25px;
+    border: 1px solid #C37834;
+    margin-bottom: 1px;
+    width:490px;
+    height:25px;
+    padding-left: 10px;
+    filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr=#FFCC00, endColorStr=#FFFF99, gradientType=0);
+}
+/* Switch Tab */
+.result01
+{
+    background: #1c81ff;
+    padding-top:1px;
+    filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr=#FFCCCC, endColorStr=#FF6600, gradientType=0);
+}
+
+.result02
+{
+    background: #16edff;
+    margin:1px;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+    -moz-opacity:0.6;
+    opacity:0.6;
+}
+
+.result03
+{
+    width:1000px;
+    height:25px;
+    border: #cac4c4 1px solid;
+    padding-top:1px;
+    margin:1px;
+    cursor:pointer;
+}
+
+/* Table Border */
+.border
+{
+    background-color: white;
+    border: 1px solid #C37834;
+    border-top: 0px;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+    -moz-opacity:0.8;
+    opacity:0.8;
+
+}
+
+#tbx01
+{
+    height: 630px;
+    width:500px;
+    margin-top: 1px;
+    overflow-x: hidden;
+}
+#tbx02
+{
+    height: 630px;
+    margin-top:1px;
+    display: none;
+    width:500px;
+    overflow-x: hidden;
+}
+#tbx01 span
+{
+    display:block;
+    width:100%;
+    height:50px;
+    line-height:50px;
+    border: #FFCC00 1px solid;
+    padding-left:10px;
+    margin:1px;
+    background: #FFFFDD;
+    cursor:pointer;
+}
+
+.tbx03
+{
+    display:block;
+    position: relative;
+    width:500px;
+    height:50px;
+    line-height:50px;
+    border: #FFCC00 1px solid;
+    padding-left:10px;
+    margin:1px;
+    background: #FFFFDD;
+    cursor: pointer;
+}

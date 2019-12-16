@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--配置自动扫描-->
+    <!--
+        context:component-scan 会自动扫描当前包及其子包，
+        并且每一个context:componment-scan都会生成一个bean，
+        当在后续的SpringMVC中需要配置控制器，所以不排除Controller和RestController注解，
+        就会扫描到两个同类型的bean,导致Spring不知道要装配那个bean。
+    -->
+    <import resource="classpath:spring/spring-*.xml"/>
+</beans>

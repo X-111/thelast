@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htt.mapper1.CategoryDao">
+
+    <resultMap type="com.htt.pojo.message" id="messagebbean">
+        <id column="sender" property="sender" />
+        <!-- 一对多的关系 -->
+        <!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
+        <collection property="message1" ofType="com.htt.pojo.amessage">
+            <result column="time1" property="time1" />
+            <result column="message" property="message" />
+        </collection>
+    </resultMap>
+    <!-- 关联查询分类和产品表 -->
+    <select id="messagequery" resultMap="messagebbean" parameterType="com.htt.pojo.Deline">
+            select  * from messages where receiver=#{receiver} and time1 > #{lasttime}
+        </select>
+    <select id="passwordquery"  resultType="String" parameterType="String">
+        select password from user1 where uname=#{uname}
+    </select>
+
+
+    <insert id="messageinsert" parameterType="com.htt.pojo.messageenty">
+         insert into messages (sender,receiver,time1,message) values(#{sender},#{receiver},#{time1},#{message})
+    </insert>
+    <select id="infoquery" resultType="com.htt.pojo.info" parameterType="String">
+        select *from information where uname=#{name};
+    </select>
+    <insert id="infoinsert" parameterType="com.htt.pojo.info">
+    insert into infornation (age,uname,address,gender,instruction) values (#{age},#{uname},#{adderss},#{gender},#{instruction})
+    </insert>
+
+    <select id="friendquery" resultType="com.htt.pojo.friend" parameterType="String">
+        select * from relation where mname=#{name};
+    </select>
+    <insert id="friendinsert" parameterType="com.htt.pojo.relation">
+        insert into relation (cname,mname) values (#{cname},#{mname});
+        insert into relation (cname,mname)values (#{mname},#{cname})
+    </insert>
+
+</mapper>
