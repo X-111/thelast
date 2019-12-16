@@ -15,8 +15,25 @@
     </resultMap>
     <!-- 关联查询分类和产品表 -->
     <select id="messagequery" resultMap="messagebbean" parameterType="com.htt.pojo.Deline">
-            select  * from messages where receiver=#{receiver} and time1 > #{lasttime}
-        </select>
+        select  * from messages
+        <where>
+            <if test="receiver!=null">
+                and receiver=#{receiver}
+            </if>
+            <if test="sender!=null">
+                and sender=#{sender}
+            </if>
+            <if test="time!=null time>0">
+                and time1>#{time1}
+            </if>
+            order by ${time1 } DESC
+        </where>
+    </select>
+
+    <select id="downmsquery"   resultType="com.htt.pojo.messageDownEnty" parameterType="com.htt.pojo.Deline">
+        select  * from messages where sender=#{sender} and receiver=#{receiver}
+    </select>
+
     <select id="passwordquery"  resultType="String" parameterType="String">
         select password from user1 where uname=#{uname}
     </select>

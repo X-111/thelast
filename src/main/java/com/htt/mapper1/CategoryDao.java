@@ -10,5 +10,6 @@ public interface CategoryDao {
     public ArrayList<String> passwordquery(String a);
     public  ArrayList<info> infoquery(String name);
     public void infoinsert(info a);
+    public ArrayList<messageDownEnty> downmsquery(Deline a);
 }
 

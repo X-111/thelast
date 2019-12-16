@@ -161,6 +161,11 @@
       <version>4.3.12.RELEASE</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>3.9</version>
+    </dependency>
 
     <!--  使用mybatis的逆向工程生成对应的bean及mapper  -->
     <!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
