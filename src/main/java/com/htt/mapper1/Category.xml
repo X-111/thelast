@@ -31,7 +31,7 @@
     </select>
 
     <select id="downmsquery"   resultType="com.htt.pojo.messageDownEnty" parameterType="com.htt.pojo.Deline">
-        select  * from messages where sender=#{sender} and receiver=#{receiver}
+        select  * from messages where sender=#{sender} and receiver=#{receiver} or receiver=#{sender} and sender=#{receiver}
     </select>
 
     <select id="passwordquery"  resultType="String" parameterType="String">
