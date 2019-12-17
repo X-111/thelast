@@ -42,20 +42,15 @@
         p{
             text-align: center;
         }
-        .circle1{
-            position: absolute;
-            min-width: 10px;
-            height: 10px;
-            background: red;
-            box-sizing: border-box;//必须是border-box，自行体会
-        color: white;
-            font-size: 10px;
-            text-align: center;
-            line-height: 10px;
-            padding: 0 5px;
-            border-radius: 5px;
-            right: 15px;
-            display: inline-block;
+        .tip {
+            display:block;
+            background:#f00;
+            border-radius:50%;
+            width:8px;
+            height:8px;
+            top:0px;
+            right:0px;
+            position:absolute;
         }
     </style>
 </head>
@@ -64,32 +59,28 @@
     int length=(int)session.getAttribute("length");
 %>
 <script>
+    var OP=true;
     var number;
     var linkman;
     var  myObj;
     var messages=0;
     var info;
+    var load;
     var br1=document.createTextNode("<br>");
     (function () {
         setInterval(getmessage, 1000);
         setInterval(receiver, 1000);
         getlink();
-        window.onload=function () {
-            var timer,dd;
-            for(var i=0;i<<%=length%>;i++){
-                dd=document.getElementById("s"+i);
-                dd.onmouseover=function () {
-                    timer=setTimeout(function () {
-                        document.getElementById("div"+i).style.display="block";
-                    },1000);
-                }
-                dd.onmouseout=function () {
-                    clearTimeout(timer);
-                    document.getElementById("div"+i).style.display="none";
-                }
-            }
+        for(var i=0;i<number;i++){
+            document.getElementById("bu"+i).onclick=download(<%=session.getAttribute("uname")%>,linkman[i].cname);
         }
-    })();
+        })();
+    function mouseover(n) {
+        document.getElementById("div"+n).style.display="block";
+    }
+    function mouseout(n) {
+        document.getElementById("div"+n).style.display="none";
+    }
     function receiver() {
         if(messages>0){
             var i;
@@ -100,6 +91,7 @@
                     var b2=document.getElementById("b"+i);
                     var p2=document.createElement("p");
                     var di=document.createElement("div");
+                    document.getElementById("i"+i).style.display="block";
                     di.style.textAlign="left";
                     p2.innerHTML=date.toLocaleString();
                     for(var l=0;l<myObj[j].message1.length;l++){
@@ -131,7 +123,7 @@
                 number=linkman.length;
             }
         }
-        xmlhttp1.open("GET", "friendquery", true);
+        xmlhttp1.open("GET", "friendquery", false);
         xmlhttp1.send();
     }
     function getinformation(n) {
@@ -141,20 +133,31 @@
                 info=JSON.parse(xmlhttp2.responseText);
             }
         }
-        xmlhttp2.open("GET", "infoquery?name="+n, true);
+        xmlhttp2.open("GET", "infoquery?name="+n, false);
         xmlhttp2.send();
     }
     function x() {
-        for(var j=0;j<number;j++){
-            document.getElementById("s"+j).innerHTML=linkman[j].cname;
-            document.getElementById("a"+j).innerHTML=linkman[j].cname;
+            for(var j=0;j<number;j++) {
+                document.getElementById("s" + j).innerHTML = linkman[j].cname;
+                document.getElementById("a" + j).innerHTML = linkman[j].cname;
+            }
         }
+    function y() {
+        if(OP){
+            for (var j = 0; j <number; j++) {
+                getinformation(linkman[j].cname);
+                var p = document.getElementById("div"+j);
+                p.innerHTML = p.innerHTML + "年龄：" +info[0].age + "<br>" + "姓名：" +info[0].uname + "<br>" + "地址：" +info[0].address + "<br>" + "性别：" +info[0].gender + "<br>" + "备注：" +info[0].instruction + "<br>";
+            }
+        }
+        OP=false;
     }
     function showInfo(n) {
         for(var m=0;m<number;m++){
             document.getElementById("dv"+m).style.display="none";
         }
         document.getElementById("dv"+n).style.display="block";
+        document.getElementById("i"+n).style.display="none";
     }
     function lol(l) {
         var date=new Date();
@@ -180,6 +183,16 @@
         xmlhttp2.open("GET", "messageinsert?sender="+sender+"&receiver="+receiver+"&message="+message, true);
         xmlhttp2.send();
     }
+    function download(m,n) {
+        var xmlhttp3 = new XMLHttpRequest();
+        xmlhttp3.onreadystatechange = function()  {
+            if (xmlhttp3.readyState == 4 ) {
+                load=JSON.parse(xmlhttp3.responseText);
+            }
+        }
+        xmlhttp3.open("GET", "downloadmg?sender="+m+"receiver"+n, false);
+        xmlhttp3.send();
+    }
     function kpl(m) {//m表示第几个联系人
         var date=new Date();
         alert(myObj[m].sender);
@@ -196,7 +209,7 @@
     }
 </script>
 <div id="resultPanel">
-    <div id="ResultTitle" style="cursor: pointer;" onclick="showResultBody();x()"align="center"><%=session.getAttribute("uname")%></div>
+    <div id="ResultTitle" style="cursor: pointer;" onclick="showResultBody();x();y()"align="center"><%=session.getAttribute("uname")%></div>
     <div id="ResultBody" style="display: none;" >
         <table id="secTable" width="250" class="wc" style="font-size:12px;">
             <tr>
@@ -210,7 +223,9 @@
                             int number=(int)session.getAttribute("length");
                             for(int i=0;i<number;i++){
                         %>
-                        <span onclick="showInfo(<%=i%>)"id="s<%=i%>"></span>
+                        <span onclick="showInfo(<%=i%>)"id="s<%=i%>"onmouseover="mouseover(<%=i%>)"onmouseout="mouseout(<%=i%>)">
+                            <i class="tip"style="display: none"id="i<%=i%>"></i>
+                        </span>
                         <%}%>
                     </div>
                     <div id="tbx02">
@@ -233,15 +248,15 @@
         <textarea id="info<%=j%>" style="height:230px;width: 550px;resize: none"></textarea>
             <input type="button"  onclick="lol(<%=j%>)"style="position:absolute;bottom: 0px;right: 0px"value="发送"id="p<%=j%>">
     </div>
+    <input type="button"value="下载聊天记录"id="bu<%=j%>">
 </div>
-<div id="div<%=j%>"style="position:absolute;top:30px;left: 520px;height: 200px;width: 200px;border: 1px solid #C37834;display: block;z-index: 999;background: #16edff;overflow: hidden">
+<%}%>
+<%
+    for(int i=0;i<number;i++){
+%>
+<div id="div<%=i%>"style="position:absolute;top:30px;left: 520px;height: 200px;width: 200px;border: 1px solid #C37834;display: none;z-index: 999;background: #16edff;overflow: auto">
     联系人资料卡片<br>
 </div>
-<script>
-    getinformation(linkman[<%=j%>].cname);
-    var p=document.getElementById("div<%=j%>");
-    p.innerHTML=p.innerHTML+"年龄："+info[0].age+"<br>"+"姓名："+info[0].uname+"<br>"+"地址："+info[0].address+"<br>"+"性别："+info[0].gender+"<br>"+"备注："+info[0].instruction+"<br>";
-</script>
 <%}%>
 </body>
 </html>
