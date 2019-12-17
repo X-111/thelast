@@ -52,7 +52,7 @@
 </head>
 <body>
     <form action="login"align="center">
-        <input type="text" id="name" name="name"  placeholder="用户"><br>
+        <input type="text" id="name" name="uname"  placeholder="用户"><br>
         <input type="text" id="password" name="password"  placeholder="密码"><br>
         <input type="submit"value="登录">
     </form>

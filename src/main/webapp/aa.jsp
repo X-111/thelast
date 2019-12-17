@@ -60,21 +60,25 @@
 %>
 <script>
     var OP=true;
+    var tar=true;
     var number;
     var linkman;
     var  myObj;
     var messages=0;
     var info;
-    var load;
     var br1=document.createTextNode("<br>");
     (function () {
         setInterval(getmessage, 1000);
         setInterval(receiver, 1000);
         getlink();
-        for(var i=0;i<number;i++){
-            document.getElementById("bu"+i).onclick=download(<%=session.getAttribute("uname")%>,linkman[i].cname);
-        }
         })();
+    function ppp(n) {
+                document.getElementById("bu"+n).onclick=function () {
+                    alert(linkman[n].cname);
+                    var url= "downloadmg?sender="+"<%=session.getAttribute("uname")%>"+"&receiver="+linkman[n].cname;
+                window.open(url);
+            }(n)
+    }
     function mouseover(n) {
         document.getElementById("div"+n).style.display="block";
     }
@@ -187,10 +191,10 @@
         var xmlhttp3 = new XMLHttpRequest();
         xmlhttp3.onreadystatechange = function()  {
             if (xmlhttp3.readyState == 4 ) {
-                load=JSON.parse(xmlhttp3.responseText);
+                alert("success");
             }
         }
-        xmlhttp3.open("GET", "downloadmg?sender="+m+"receiver"+n, false);
+        xmlhttp3.open("GET", "downloadmg?sender="+m+"&receiver="+n, false);
         xmlhttp3.send();
     }
     function kpl(m) {//m表示第几个联系人
@@ -248,7 +252,7 @@
         <textarea id="info<%=j%>" style="height:230px;width: 550px;resize: none"></textarea>
             <input type="button"  onclick="lol(<%=j%>)"style="position:absolute;bottom: 0px;right: 0px"value="发送"id="p<%=j%>">
     </div>
-    <input type="button"value="下载聊天记录"id="bu<%=j%>">
+    <input type="button"value="下载聊天记录"id="bu<%=j%>"onclick="ppp(<%=j%>)">
 </div>
 <%}%>
 <%
