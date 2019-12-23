@@ -166,7 +166,11 @@
       <artifactId>poi-ooxml</artifactId>
       <version>3.9</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-nop</artifactId>
+      <version>1.7.2</version>
+    </dependency>
     <!--  使用mybatis的逆向工程生成对应的bean及mapper  -->
     <!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
     <dependency>

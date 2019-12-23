@@ -23,15 +23,16 @@
     <!--配置MyBatis-->
     <!--1. 自动扫描mapper.xml文件和会话工厂,配置mapper是操作那个数据源-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="typeAliasesPackage" value="com.htt.pojo" />
+
         <property name="dataSource" ref="dataSource"/>
         <!--注意:这里是Mapperlocations,不是configLocation-->
+        <!-- 自动扫描mapping.xml文件 -->
+
         <property name="mapperLocations" value="classpath:com/htt/mapper1/*.xml"/>
     </bean>
     <!--2.自动扫描Mapper层的接口-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <property name="basePackage" value="com.htt.mapper1"/>
-
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
 </beans>

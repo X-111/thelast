@@ -74,7 +74,6 @@
         })();
     function ppp(n) {
                 document.getElementById("bu"+n).onclick=function () {
-                    alert(linkman[n].cname);
                     var url= "downloadmg?sender="+"<%=session.getAttribute("uname")%>"+"&receiver="+linkman[n].cname;
                 window.open(url);
             }(n)

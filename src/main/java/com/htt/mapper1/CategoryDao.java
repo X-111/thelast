@@ -3,7 +3,7 @@ package com.htt.mapper1;
 import java.util.ArrayList;
 import com.htt.pojo.*;
 public interface CategoryDao {
-    public ArrayList<message> messagequery(Deline a);
+    public ArrayList<message> messageqq(Deline a);
     public void messageinsert(messageenty b);
     public ArrayList<friend> friendquery(String a);
     public void friendinsert(relation a);

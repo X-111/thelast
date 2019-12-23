@@ -1,14 +1,12 @@
 package com.htt.controller;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Date;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.htt.mapper1.CategoryDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.htt.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +35,7 @@ public class loginController {
             return m1;
         }
         else {
-            ModelAndView m2=new ModelAndView("bb.jsp");
+            ModelAndView m2=new ModelAndView("/index.jsp");
             return m2;
         }
     }

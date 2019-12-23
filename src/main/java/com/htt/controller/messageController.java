@@ -1,23 +1,25 @@
 package com.htt.controller;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Date;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.bind.annotation.ResponseBody;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.htt.mapper1.CategoryDao;
+import com.htt.pojo.Deline;
+import com.htt.pojo.message;
+import com.htt.pojo.messageenty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.htt.pojo.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.inject.Scope;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Date;
+
 @Controller
+
 public class messageController {
     @Autowired
     CategoryDao cd;
@@ -32,8 +34,9 @@ public class messageController {
         long time= (long)cn.getAttribute(uname+"time");
         p.setLasttime(time);
         p.setReceiver(uname);
-        System.out.println("start");
-        ArrayList<message> s=cd.messagequery(p);
+        p.setSender(null);
+        System.out.println("start"+uname+time);
+        ArrayList<message> s=cd.messageqq(p);
         long tim=0;
         for(int i=0;i<s.size();i++)
         {

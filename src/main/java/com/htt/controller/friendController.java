@@ -21,13 +21,13 @@ public class friendController {
     @RequestMapping( value="/friendquery" )
     @ResponseBody
     public String friendq(HttpServletRequest request ) throws Exception {
-        //System.out.println("alert");
+        System.out.println("alert");
 
        ArrayList<friend> s=cd.friendquery((String)request.getSession().getAttribute("uname"));
                   request.getSession().setAttribute("length", s.size());
 
             String ljson = MAPPER.writeValueAsString(s);
-           // System.out.println("bug"+s.get(0).getCname()+" x"+s.get(0).getMname());
+            System.out.println("bug"+s.get(0).getCname()+" x"+s.get(0).getMname());
             return ljson;
     }
     @RequestMapping( value="/friendinsert" )
